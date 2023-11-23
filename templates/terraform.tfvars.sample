@@ -1,0 +1,4 @@
+region          = "**-****-*"
+subnet_id       = "subnet-*****************"
+ami             = "ami-*****************"
+instance_type   = "t3.micro"

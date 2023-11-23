@@ -22,6 +22,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName}
+        - Key: Environment
+          Value: test
 
   EC2InstanceRole:
     Type: AWS::IAM::Role

@@ -1,3 +1,8 @@
 node_modules
 cdk.out
 config.json
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.*
+.terraform
+.terraform.lock.hcl
