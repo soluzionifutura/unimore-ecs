@@ -1,4 +1,12 @@
 {
   "name": "unimore-ecs",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "aws-cdk": "^2.110.1",
+    "aws-cdk-lib": "^2.110.1"
+  },
+  "scripts": {
+    "deploy-cdk": "npx aws-cdk deploy --app templates/ec2-cdk.js",
+    "destroy-cdk": "npx aws-cdk destroy --app templates/ec2-cdk.js"
+  }
 }
