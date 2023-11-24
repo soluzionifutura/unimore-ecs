@@ -21,3 +21,7 @@ Per il deployment tramite Terraform è necessario:
 - Installare [Terraform](https://developer.hashicorp.com/terraform/install)
 - Creare un file di configurazione `terraform.tfvars` (`cp terraform.tfvars.sample terraform.tfvars` e inserisci i valori appropriati per l'account)
 - Da dentro la directory `templates`, lanciare `terraform init` e poi `terraform apply` rer creare lo stack, `terraform destroy` per distruggerlo
+
+## Documentazione
+
+- [Branch deploy GitHub Action](https://github.com/aws-actions/aws-cloudformation-github-deploy)
