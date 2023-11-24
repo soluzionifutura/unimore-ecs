@@ -10,6 +10,13 @@ Parameters:
   
   Subnet:
     Type: AWS::EC2::Subnet::Id
+  
+  VPC:
+    Type: AWS::EC2::VPC::Id
+  
+  GitHubBranch:
+    Type: String
+    Default: main
 
 Resources:
   EC2Instance:
@@ -18,12 +25,39 @@ Resources:
       ImageId: !Ref EC2InstanceAMI
       InstanceType: t3.micro
       SubnetId: !Ref Subnet
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
       IamInstanceProfile: !Ref EC2InstanceProfile
+      UserData:
+        Fn::Base64:
+          !Sub
+            - |
+              #!/bin/bash
+              yum update -y
+              yum install -y git
+              yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+              yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+              git clone https://github.com/soluzionifutura/unimore-ecs.git /var/myapp
+              cd /var/myapp
+              git checkout ${GitHubBranch}
+              nohup node index.js
+            - GitHubBranch: !Ref GitHubBranch
       Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName}
         - Key: Environment
-          Value: test
+          Value: sandbox
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable HTTP access on port 3000
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3000
+          ToPort: 3000
+          CidrIp: 0.0.0.0/0
 
   EC2InstanceRole:
     Type: AWS::IAM::Role
