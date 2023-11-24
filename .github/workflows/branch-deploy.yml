@@ -28,4 +28,4 @@ jobs:
         name: ${{ github.head_ref }}
         template: templates/ec2-cloudformation.yaml
         parameter-overrides: >-
-          Subnet=${{ vars.AWS_SUBNET }}
+          Subnet=${{ vars.AWS_SUBNET }},VPC=${{ vars.AWS_VPC }},GitHubBranch=${{ github.head_ref }}
